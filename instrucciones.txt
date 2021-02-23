@@ -1,0 +1,16 @@
+Las bases de datos son dos y estas ubicadas:
+BD/
+
+Los datos de acceso son:
+
+User: EBEJARANO
+password: 931217
+
+Cualquier cambio en la base de datos, registrarlo en :
+BD/changes.text
+
+de la siguiente manera:
+
+Autor: Quien crea el cambio
+Fecha: fecha del cambio
+SQL: Sentencias sql
