@@ -1,0 +1,71 @@
+
+Warning: PHP Startup: Unable to load dynamic library 'php_imagick.dll' (tried: C:\xampp\php\ext\php_imagick.dll (No se puede encontrar el módulo especificado.), C:\xampp\php\ext\php_php_imagick.dll.dll (No se puede encontrar el módulo especificado.)) in Unknown on line 0
+<?php
+class Formulario extends Base {
+	function validar_token() {
+		$hash = $_SERVER['HTTP_AUTHORIZATION'];
+
+		if ($hash) {//No hay errores de validacion
+			$_POST = desencriptar_post($_POST, $hash);
+		} else {//Errores de validación
+			$r['error'] = true;
+			$r['msg']   = 'Error en TOKEN';
+			echo json_encode($r);
+			exit(0);
+		}
+		return true;
+	}
+	function validar() {
+
+		$v      = new Validation($_POST);
+		$result = $v->validate();
+
+		if ($result['messages'] == "") {//No hay errores de validacion
+			return true;
+		} else {//Errores de validación
+			$r['error']      = true;
+			$r['msg']        = $result['messages'];
+			$r['bad_fields'] = $result['bad_fields'];
+			$r['errors']     = $result['errors'];
+			echo json_encode($r);
+			exit(0);
+		}
+		return true;
+	}
+
+	function tabla($data) {
+
+	}
+
+	/* Permite cargar la información inicial de la vista */
+	function cargar() {
+		$this->validar();
+		$db = $this->db;// HOMOLOGAR CODIGO EXTERNO
+
+		pre($_POST);
+
+		$result          = array();
+		$result["error"] = false;
+		$result["msg"]   = "PONER MENSAJE A ENVIAR AQUI.";
+		echo json_encode($result);
+	}
+	/* Permite ver el detalles de usabilidad por usuario */
+	function ver_detalles_usuario() {
+		$this->validar();
+		$db = $this->db;// HOMOLOGAR CODIGO EXTERNO
+
+		//PONER CODIGO AQUI ATT : FABIO GARCIA :D
+
+		$result          = array();
+		$result["error"] = false;
+		$result["msg"]   = "PONER MENSAJE A ENVIAR AQUI.";
+		echo json_encode($result);
+	}
+
+}
+//$_POST = array_map("strtoupper", $_POST); //CONVERTIR TODO EN MAYUSCULA
+
+$accion = ACCION;
+$f      = new Formulario();
+$f->$accion();
+?>
